@@ -5,12 +5,11 @@ rule xml_encoded_2021_40444 : Windows CVE {
 		hash = "13DE9F39B1AD232E704B5E0B5051800FCD844E9F661185ACE8287A23E9B3868E" // document.xml
 		hash = "84674ACFFBA5101C8AC518019A9AFE2A78A675EF3525A44DCEDDEED8A0092C69" // original .docx
 	strings:
-		$xml_e = "Target=\"&#109;&#104;&#116;&#109;&#108;&#58;&#104;&#116;&#116;&#112;"
-		$xml_r = /Target=\"([Mm]|&#(109|77|x6d|x4d);)([Hh]|&#(104|72|x68|x48);)([Tt]|&#(116|84|x74|x54);)([Mm]|&#(109|77|x6d|x4d);)([Ll]|&#(108|76|x6c|x4c);)(:|&#58;|&#x3a)/
-		$t_mode_e = "TargetMode=\"&#x45;&#x78;&#x74;&#x65;&#x72;&#x6e;&#x61;&#x6c;\""
-		$t_mode_r = /TargetMode=\"([Ee]|&#(x45|x65|69|101);)([Xx]|&#(x58|x78|88|120);)([Tt]|&#(x74|x54|84|116);)/
+		$xml = "<?xml" ascii wide
+		$mhtml = /Target\s*=\s*\"([Mm]|&#(109|77|x6d|x4d);)([Hh]|&#(104|72|x68|x48);)([Tt]|&#(116|84|x74|x54);)([Mm]|&#(109|77|x6d|x4d);)([Ll]|&#(108|76|x6c|x4c);)(:|&#58;|&#x3a)/ ascii wide
+		$targetmode = /TargetMode\s*=\s*\"([Ee]|&#(x45|x65|69|101);)([Xx]|&#(x58|x78|88|120);)([Tt]|&#(x74|x54|84|116);)/ ascii wide
 	condition:
-		uint32be(0) == 0x3c3f786d and filesize < 500KB and ($xml_e or $xml_r) and ($t_mode_e or $t_mode_r)
+		filesize < 500KB and $xml in (0..8) and $mhtml and $targetmode
 }
 
 /*
