@@ -16,7 +16,7 @@ rule xml_encoded_2021_40444 : Windows CVE {
 /*
 xml_encoded_2021_40444 .\document.xml.rels
 0x442:$xml_e: Target="&#109;&#104;&#116;&#109;&#108;&#58;&#104;&#116;&#116;&#112;
-0x442:$xml_r: Target="&#109;&#104;&#116;&#109;&#108;&#58;&#104;&#116;&#116;&#112;
+0x442:$xml_r: Target="&#109;&#104;&#116;&#109;&#108;&#58;
 0x62d:$t_mode_e: TargetMode="&#x45;&#x78;&#x74;&#x65;&#x72;&#x6e;&#x61;&#x6c;"
-0x62d:$t_mode_r: TargetMode="&#x45;&#x78;&#x74;&#x65;&#x72;&#x6e;&#x61;&#x6c;"
+0x62d:$t_mode_r: TargetMode="&#x45;&#x78;&#x74;
 */
