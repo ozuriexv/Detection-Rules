@@ -10,7 +10,7 @@ rule xml_encoded_2021_40444 : Windows CVE {
 		$t_mode_e = "TargetMode=\"&#x45;&#x78;&#x74;&#x65;&#x72;&#x6e;&#x61;&#x6c;\""
 		$t_mode_r = /TargetMode=\"([Ee]|&#(x45|x65|69|101);)([Xx]|&#(x58|x78|88|120);)([Tt]|&#(x74|x54|84|116);)\"/
 	condition:
-		uint32be(0) == 0x3c3f786d and ($xml_e or $xml_r) and ($t_mode_e or $t_mode_r)
+		uint32be(0) == 0x3c3f786d and filesize < 500KB and ($xml_e or $xml_r) and ($t_mode_e or $t_mode_r)
 }
 
 /*
