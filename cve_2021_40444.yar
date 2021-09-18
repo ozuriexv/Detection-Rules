@@ -1,7 +1,7 @@
 rule xml_encoded_2021_40444 : Windows CVE {
 	meta:
 		author = "James E.C, Proofpoint"
-		description = "Detects possible CVE-2021-40444 with no encoding, HTML entity (hex)? encoding, or all 3"
+		description = "Detects possible CVE-2021-40444 with no encoding, HTML/XML entity (and hex notation) encoding, or all 3"
 		hash = "13DE9F39B1AD232E704B5E0B5051800FCD844E9F661185ACE8287A23E9B3868E" // document.xml
 		hash = "84674ACFFBA5101C8AC518019A9AFE2A78A675EF3525A44DCEDDEED8A0092C69" // original .docx
 	strings:
