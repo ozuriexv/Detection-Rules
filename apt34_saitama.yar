@@ -49,14 +49,3 @@ rule apt34_saitama_agent_main : Windows DNS {
 	condition:
 		uint16be(0) == 0x4d5a and filesize < 200KB and (3 of ($f*) or 1 of ($k*))
 }
-
-rule apt34_saitama_agent_experimental : Windows DNS {
-	meta:
-		author = "James E.C."
-		description = "Assembly of the _DomainMaker function, experimental"
-		hash = "E0872958B8D3824089E5E1CFAB03D9D98D22B9BCB294463818D721380075A52D"
-	strings:
-		$op1 = { 02 28 2A 00 00 06 28 09 00 00 06 0B 12 01 28 1B 00 00 0A 28 2A 00 00 06 03 28 1E 00 00 0A 80 13 00 00 04 }
-	condition:
-		uint16be(0) == 0x4d5a and filesize < 200KB and $op1
-}
