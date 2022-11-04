@@ -8,6 +8,7 @@ rule PS_AMSI_Bypass_Compact {
 		$s1 = ".Assembly.GetType([" ascii nocase
 		$s2 = "SetValue(" ascii nocase
 		$s3 = "GetField([" ascii nocase
+		$s4 = "-replace" ascii nocase
 	condition:
 		filesize < 100KB and all of ($k*) and 2 of ($s*)
 }
