@@ -14,6 +14,19 @@ rule PS_AMSI_Bypass_Compact {
 }
 
 /*
+PS_AMSI_Bypass_Compact florian_roth_20221104.bin
+0x99:$k1: |%{[char][
+0xf2:$k1: |%{[char][
+0xaa:$k2: +($
+0x103:$k2: +($
+0x79:$s1: .Assembly.GetType([
+0x14a:$s2: SetValue(
+0xda:$s3: GetField([
+0xca:$s4: -replace
+0x123:$s4: -replace
+
+===============
+
 $A="5492868772801748688168747280728187173688878280688776828"
 $B="1173680867656877679866880867644817687416876797271"
 [Ref].Assembly.GetType([string](0..37|%{[char][int](29+($A+$B).
