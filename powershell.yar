@@ -1,5 +1,5 @@
 rule PS_AMSI_Bypass_Compact {
-	metadata:
+	meta:
 		author = "James E.C, mastodon: @ozurie@infosec.exchange, twitter: @sudosev"
 		reference = "https://twitter.com/cyb3rops/status/1588574518057979905/photo/1"
 	strings:
