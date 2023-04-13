@@ -38,3 +38,104 @@ GetField([string](38..51|%{[char][int](29+($A+$B).
 substring(($_*2),2))})-replace " ",'Non' + 'Public,Static').
 SetValue($null,$true)
 */
+
+rule PS_Github_Integration {
+	meta:
+		author = "James E.C, Emerging Threats - Proofpoint"
+		twitter = "@EcOzurie"
+		mastodon = "https://infosec.exchange/@ozurie"
+		description = "Searching for the use of Github in a PowerShell script, somewhere near the '-Uri' parameter"
+		category = "hunting"
+	strings:
+		$host = "github" nocase
+		$uri = "-Uri" nocase
+		$var = /\$uri\s*=\s*\x22[^\x22]+github/  nocase
+	condition:
+		for all i in (1..#uri) : ($host in (@uri[i]..@uri[i]+150)) or $var
+}
+
+rule PS_Telegram_Integration {
+	meta:
+		author = "James E.C, Emerging Threats - Proofpoint"
+		twitter = "@EcOzurie"
+		mastodon = "https://infosec.exchange/@ozurie"
+		description = "Searching for the use of Telegram in a PowerShell script, somewhere near the '-Uri' parameter"
+		category = "hunting"
+	strings:
+		$host = "telegram" nocase
+		$uri = "-Uri" nocase
+		$var = /\$uri\s*=\s*\x22[^\x22]+telegram/ nocase
+	condition:
+		for all i in (1..#uri) : ($host in (@uri[i]..@uri[i]+150)) or $var
+}
+
+rule PS_Char_Concat {
+	meta:
+		author = "James E.C, Emerging Threats - Proofpoint"
+		twitter = "@EcOzurie"
+		mastodon = "https://infosec.exchange/@ozurie"
+		description = "Common PowerShell char concatenation pattern"
+		category = "hunting"
+	strings:
+		$s1 = "+[Char]" nocase
+		$s2 = /\[Char\][0-9]{1,3}\s*\+\s*\[Char\][0-9]{1,3}/ nocase
+	condition:
+		all of ($s*)	
+}
+
+rule PS_Casing_StringChar_1 {
+	meta:
+		author = "James E.C, Emerging Threats - Proofpoint"
+		twitter = "@EcOzurie"
+		mastodon = "https://infosec.exchange/@ozurie"
+		description = "Weird casing on '[String][Char]' with a negation for this exact casing"
+		category = "hunting"
+	strings:
+		$s1 = "[String][Char]" nocase
+		$n1 = "[String][Char]"
+	condition:
+		$s1 and not $n1
+}
+
+rule PS_Casing_Replace_1 {
+	meta:
+		author = "James E.C, Emerging Threats - Proofpoint"
+		twitter = "@EcOzurie"
+		mastodon = "https://infosec.exchange/@ozurie"
+		description = "Weird casing on the 'replace' PowerShell operation"
+		category = "hunting"
+	strings:
+		$s1 = ".replace(" nocase
+		$n1 = ".replace("
+		$n2 = ".Replace("
+	condition:
+		$s1 and not any of ($n*)
+}
+
+rule PS_Casing_Replace_2 {
+	meta:
+		author = "James E.C, Emerging Threats - Proofpoint"
+		twitter = "@EcOzurie"
+		mastodon = "https://infosec.exchange/@ozurie"
+		description = "Weird casing on the 'replace' PowerShell operation"
+		category = "hunting"
+	strings:
+		$s1 = "-replace(" nocase
+		$n1 = "-replace("
+		$n2 = "-Replace("
+	condition:
+		$s1 and not any of ($n*)
+}
+
+rule PS_ArrayOrdering_1 {
+	meta:
+		author = "James E.C, Emerging Threats - Proofpoint"
+		twitter = "@EcOzurie"
+		mastodon = "https://infosec.exchange/@ozurie"
+		description = "Obfuscated PowerShell grabbing elements from an array, typically when concatenating payloads or strings"
+		category = "hunting"
+	strings:
+		$s1 = "(\"{0}{1}{2}"
+	condition:
+		$s1
+}
