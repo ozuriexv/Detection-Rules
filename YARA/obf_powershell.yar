@@ -127,3 +127,32 @@ rule PS_reverse_strings_1 {
 	condition:
 		$ps in (0..100) and 1 of ($r_*) and 1 of ($direction_*) and filesize < 10KB
 }
+
+rule PS_Char_Byte {
+	meta:
+		author = "James E.C, Emerging Threats - Proofpoint"
+		twitter = "@EcOzurie"
+		mastodon = "https://infosec.exchange/@ozurie"
+		description = "Common PowerShell obfuscation pattern"
+		category = "hunting"
+	strings:
+		$obfus = "[char]([byte]0x" ascii nocase
+	condition:
+		filesize < 800KB and #obfus > 30
+}
+
+rule PS_AMSI_Bypass_1 {
+	meta:
+		author = "James E.C, Emerging Threats - Proofpoint"
+		twitter = "@EcOzurie"
+		mastodon = "https://infosec.exchange/@ozurie"
+		description = "AMSI Bypass PowerShell script"
+		category = "hunting"
+	strings:
+		$dll_imp = "[DllImport(\"kernel32\")]" ascii
+		$api = "LoadLibrary" ascii
+		$obfus_1 = ".normalize(" ascii nocase
+		$obfus_2 = "[char]([byte]0x" ascii nocase
+	condition:
+		filesize < 800KB and $dll_imp and $api and $obfus_1 and #obfus_2 > 5
+}
