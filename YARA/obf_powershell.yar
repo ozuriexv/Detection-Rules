@@ -17,6 +17,8 @@ rule PS_AMSI_Bypass_Compact {
 }
 
 /*
+Needs more work, add offsetting for the sake of accuracy
+
 PS_AMSI_Bypass_Compact florian_roth_20221104.bin
 0x99:$k1: |%{[char][
 0xf2:$k1: |%{[char][
