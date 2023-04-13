@@ -1,6 +1,8 @@
 rule phorpiex_return {
 	meta:
-		author = "James E.C."
+		author = "James E.C, Emerging Threats - Proofpoint"
+		twitter = "@EcOzurie"
+		mastodon = "https://infosec.exchange/@ozurie"
     		description = "Detects new Phorpiex, barebones, downloader component."
     		reference = "b22b92d3736d46ec635e39270782ba3b2407e465212d222723e3b709df0e95ee"
 	strings:
