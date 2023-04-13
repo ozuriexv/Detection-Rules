@@ -1,6 +1,6 @@
 rule cve_2020_1300 : Windows Exploit {
 	meta:
-		author = "James Emery-Callcott, Emerging Threats - Proofpoint"
+		author = "James E.C, Emerging Threats - Proofpoint"
 		twitter = "@EcOzurie"
 		mastodon = "https://infosec.exchange/@ozurie"
 		description = "CVE-2020-1300 - .cab directory traversal"
