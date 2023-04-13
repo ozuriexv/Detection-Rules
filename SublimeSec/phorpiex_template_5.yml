@@ -1,0 +1,52 @@
+# Initial rule without ML component handling extortion wording in the email body
+name: "Phorpiex Template 5"
+description: |
+  One of many crypto-currency extortion campaigns conducted via the Phorpiex/Trik botnet.
+  This email scares the recipient into believing their system was compromised and private/sensitive recordings of the victim were taken, a BTC payment is expected with the promise of deleting the recordings.
+type: "rule"
+severity: "high"
+source: |
+  type.inbound
+  and length(attachments) == 0
+  and regex.contains(sender.email.email, '^[A-Za-z]+\d{2}@')
+  and regex.match(sender.email.domain.root_domain, '^\d{4}\.com$')
+      and (
+          2 of (
+              strings.ilike(body.plain.raw, '*one of your passwords*'),
+              strings.ilike(body.plain.raw, '*my private malware*'),
+              strings.ilike(body.plain.raw, '*I RECORDED YOU*'),
+              strings.ilike(body.plain.raw, '*bitcoin wallet is:*'),
+              strings.ilike(body.plain.raw, '*Drive-by exploit*'),
+              strings.ilike(body.plain.raw, '*this email was sent from some hacked server*')
+          )
+      and (
+          1 of (
+              strings.ilike(subject.subject, 'Video of you*'),
+              strings.ilike(subject.subject, 'You got recorded -*'),
+              strings.ilike(subject.subject, 'Seen everything -*')
+          )
+      )
+  )
+tags:
+  - "Extortion"
+  - "Crypto-currency"
+
+# New rule based on Sam's ML recommendation
+name: "Phorpiex Template 5"
+description: |
+  One of many crypto-currency extortion campaigns conducted via the Phorpiex/Trik botnet.
+  This email scares the recipient into believing their system was compromised and private/sensitive recordings of the victim were taken, a BTC payment is expected with the promise of deleting the recordings.
+type: "rule"
+severity: "high"
+source: |
+  type.inbound
+  and length(attachments) == 0
+  and regex.match(sender.email.email, '^[A-Za-z]+\d{2}@\d{4}\.com$')
+
+  and any([body.plain.raw, body.html.inner_text], 
+    any(ml.nlu_classifier(.).intents,
+      .name == "extortion" and .confidence == "high")
+    )
+tags:
+  - "Extortion"
+  - "Crypto-currency"
