@@ -1,6 +1,8 @@
 rule PS_AMSI_Bypass_Compact {
 	meta:
-		author = "James E.C, mastodon: @ozurie@infosec.exchange, twitter: @sudosev"
+		author = "James E.C, Emerging Threats - Proofpoint"
+		twitter = "@EcOzurie"
+		mastodon = "https://infosec.exchange/@ozurie"
 		description = "Detects a compact AMSI bypass attempt (or something obscure at the very least)"
 		reference = "https://twitter.com/cyb3rops/status/1588574518057979905/photo/1"
 	strings:
