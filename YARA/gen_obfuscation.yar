@@ -12,3 +12,19 @@ rule xor_dos_header_fake_magic : Windows XOR Obf {
 	condition:
 		$magic at 0 and $xor
 }
+
+rule obf_vbs_26062020 : Windows VBS Obf {
+	meta:
+		author = "James E.C, Emerging Threats - Proofpoint"
+		twitter = "@EcOzurie"
+		mastodon = "https://infosec.exchange/@ozurie"
+		description = "Obfuscated VBS stuff"
+		reference = "https://blog.morphisec.com/obfuscated-vbscript-drops-zloader-ursnif-qakbot-dridex"
+		category = "hunting"
+		date = "26-06-2020"
+	strings:
+		$execg = "ExecuteGlobal(determinate(" ascii
+		$obf1 = /=\sArray\(([A-Za-z0-9]{2,8},\s?){20,400}[A-Za-z0-9]{2,8}\)/
+	condition:
+		#execg > 10 and #obf1 > 4
+}
