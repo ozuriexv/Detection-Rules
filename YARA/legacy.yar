@@ -64,3 +64,21 @@ rule mz_spam_pdb_hunting : Windows PE Hunting {
 	condition:
 		uint16be(0) == 0x4d5a and $pdb_str and $pdb_re
 }
+
+rule maldoc_lurelang_1 : MuddyWater {
+    meta:
+		author = "James E.C, Emerging Threats - Proofpoint"
+		twitter = "@EcOzurie"
+		mastodon = "https://infosec.exchange/@ozurie"
+      		description = "MuddyWater dropper maldoc"
+      		hash = "08b11f246e2ebcfc049f198c055fc855e0af1f8499ba18791e3232efa913b01a"
+      		malfamily = "MuddyWater"
+      		category = "malware"
+		date = "2019-05-01"
+    strings:
+		$s1 = "to enter the hash code f1rst" wide nocase
+		$s2 = "Enable Edit" wide nocase
+		$s3 = "Enable Content" wide nocase
+    condition:
+		uint32be(0) == 0xd0cf11e0 and 2 of ($s*)
+}
