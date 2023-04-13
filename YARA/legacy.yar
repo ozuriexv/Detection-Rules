@@ -49,3 +49,18 @@ rule T1038_Lateral_Movement_SCM_DLL_Hijack : Windows LateralMovement T1038 {
 	condition:
 		1 of ($re_poc*) or 3 of ($poc1_*) or 3 of ($poc2_*)
 }
+
+rule mz_spam_pdb_hunting : Windows PE Hunting {
+	meta:
+		author = "James E.C, Emerging Threats - Proofpoint"
+		twitter = "@EcOzurie"
+		mastodon = "https://infosec.exchange/@ozurie"
+        	description = "PDB containing 'spam' string inspired by FireEye research."
+        	category = "hunting"
+        	date = "30-08-2019"
+	strings:
+		$pdb_str = "spam" ascii nocase
+		$pdb_re = /RSDS[\x00-\xFF]{1,300}:\\[\x00-\xFF]{1,300}spam[^\.]+\.pdb\x00/ nocase
+	condition:
+		uint16be(0) == 0x4d5a and $pdb_str and $pdb_re
+}
