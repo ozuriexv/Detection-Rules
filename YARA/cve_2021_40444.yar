@@ -1,6 +1,8 @@
 rule xml_encoded_2021_40444 : Windows CVE {
 	meta:
-		author = "James E.C, Proofpoint"
+		author = "James E.C, Emerging Threats - Proofpoint"
+		twitter = "@EcOzurie"
+		mastodon = "https://infosec.exchange/@ozurie"
 		description = "Detects possible CVE-2021-40444 with no encoding, HTML/XML entity (and hex notation) encoding, or all 3"
 		notes = "According to @DissectMalware, 'External' is case sensitive so parts of the $targetmode PCRE may never hit."
 		hash = "13DE9F39B1AD232E704B5E0B5051800FCD844E9F661185ACE8287A23E9B3868E" // document.xml
@@ -23,7 +25,9 @@ xml_encoded_2021_40444 .\document.xml.rels
 
 rule xml_obfus_hunting_1 {
 	meta:
-		author = "James E.C, Proofpoint"
+		author = "James E.C, Emerging Threats - Proofpoint"
+		twitter = "@EcOzurie"
+		mastodon = "https://infosec.exchange/@ozurie"
 		description = "Suspicious leading 0's in XML entity encoding"
 		credit = "@DissectMalware, @cyb3rops"
 	strings:
