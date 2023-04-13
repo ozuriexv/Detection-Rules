@@ -1,6 +1,8 @@
 rule apt34_saitama_agent_alphabet : Windows DNS {
 	meta:
-		author = "James E.C."
+		author = "James E.C, Emerging Threats - Proofpoint"
+		twitter = "@EcOzurie"
+		mastodon = "https://infosec.exchange/@ozurie"
 		description = "Custom alphabet used by APT34's Saitama Agent"
 		hash = "E0872958B8D3824089E5E1CFAB03D9D98D22B9BCB294463818D721380075A52D"
 	strings:
@@ -11,7 +13,9 @@ rule apt34_saitama_agent_alphabet : Windows DNS {
 
 rule apt34_saitama_agent_pdb : Windows DNS {
 	meta:
-		author = "James E.C."
+		author = "James E.C, Emerging Threats - Proofpoint"
+		twitter = "@EcOzurie"
+		mastodon = "https://infosec.exchange/@ozurie"
 		description = "Snippets of APT34's Saitama Agent PDB"
 		hash = "E0872958B8D3824089E5E1CFAB03D9D98D22B9BCB294463818D721380075A52D"
 	strings:
@@ -23,7 +27,9 @@ rule apt34_saitama_agent_pdb : Windows DNS {
 
 rule apt34_saitama_agent_base_ps : Windows DNS {
 	meta:
-		author = "James E.C."
+		author = "James E.C, Emerging Threats - Proofpoint"
+		twitter = "@EcOzurie"
+		mastodon = "https://infosec.exchange/@ozurie"
 		description = "Snippets of base64 PowerShell commands used in APT34's Saitama Agent"
 		hash = "E0872958B8D3824089E5E1CFAB03D9D98D22B9BCB294463818D721380075A52D"
 	strings:
@@ -35,7 +41,9 @@ rule apt34_saitama_agent_base_ps : Windows DNS {
 
 rule apt34_saitama_agent_main : Windows DNS {
 	meta:
-		author = "James E.C."
+		author = "James E.C, Emerging Threats - Proofpoint"
+		twitter = "@EcOzurie"
+		mastodon = "https://infosec.exchange/@ozurie"
 		description = "Various function names from APT34's Saitama Agent"
 		hash = "E0872958B8D3824089E5E1CFAB03D9D98D22B9BCB294463818D721380075A52D"
 	strings:
