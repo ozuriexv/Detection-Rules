@@ -109,3 +109,21 @@ rule PS_ArrayOrdering_1 {
 	condition:
 		$s1
 }
+
+rule PS_reverse_strings_1 {
+	meta:
+		author = "James E.C, Emerging Threats - Proofpoint"
+		twitter = "@EcOzurie"
+		mastodon = "https://infosec.exchange/@ozurie"
+		description = "Basic left-to-right or left-to-right obfuscation use - includes network comms"
+		category = "hunting"
+	strings:
+		$ps = "powershell" ascii wide nocase
+		$r_env = ":vne$" ascii wide
+		$r_new_obj = "jbO-weN(" ascii wide
+		$r_download = "olnwoD." ascii wide
+		$direction_l2r = "LeftToRight"
+		$direction_r2l = "RightToLeft"
+	condition:
+		$ps in (0..100) and 1 of ($r_*) and 1 of ($direction_*) and filesize < 10KB
+}
