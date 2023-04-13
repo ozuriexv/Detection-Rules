@@ -19,3 +19,33 @@ rule jsp_webshell_click2gov : Windows {
 	condition:
 		($jsp at 0) and ((1 of ($cmd*)) or 1 of ($p*))
 }
+
+rule T1038_Lateral_Movement_SCM_DLL_Hijack : Windows LateralMovement T1038 {
+	meta:
+		author = "James E.C, Emerging Threats - Proofpoint"
+		twitter = "@EcOzurie"
+		mastodon = "https://infosec.exchange/@ozurie"
+		description = "Detects possible lateral movement via copying specially crafted DLLs to specific paths."
+		date = "20-04-2019"
+		reference = "https://posts.specterops.io/lateral-movement-scm-and-dll-hijacking-primer-d2f61e8ab992"
+		reference = "https://github.com/djhohnstein/wlbsctrl_poc"
+		reference = "https://github.com/djhohnstein/TSMSISrv_poc"
+		malfamily = "DLLHijack"
+		category = "LateralMovement"
+		mitre = "T1038"
+	strings:
+		$re_poc1 = /\\\\(([0-9]{1,3}\.){3}[0-9]{1,3}|([a-z0-9\-]{1,30}\.){1,8}[a-z]{1,8})\s*(stop|start)\s*(IKEEXT|SessionEnv)/i
+		$re_poc2 = /copy\s*(wlbsctrl|TSMSISrv)\.dll\s*\\\\(([0-9]{1,3}\.){3}[0-9]{1,3}|([a-z0-9\-]{1,30}\.){1,8}[a-z]{1,8})\\\w\$\\Windows\\System32\\(wlbsctrl|TSMSISrv)\.dll/i
+
+		$poc1_str1 = "stop IKEEXT" ascii wide
+		$poc1_str2 = "copy wlbsctrl.dll \\\\" ascii wide
+		$poc1_str3 = "\\Windows\\System32\\wlbsctrl.dll" ascii wide
+		$poc1_str4 = "start IKEEXT" ascii wide
+
+		$poc2_str1 = "stop SessionEnv" ascii wide
+		$poc2_str2 = "copy TSMSISrv.dll \\\\" ascii wide
+		$poc2_str3 = "\\Windows\\System32\\TSMSISrv.dll" ascii wide
+		$poc2_str4 = "start SessionEnv" ascii wide
+	condition:
+		1 of ($re_poc*) or 3 of ($poc1_*) or 3 of ($poc2_*)
+}
