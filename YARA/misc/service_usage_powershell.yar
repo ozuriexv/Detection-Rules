@@ -8,7 +8,7 @@ rule PS_Github_Integration {
 	strings:
 		$host = "github" nocase
 		$uri = "-Uri" nocase
-		$var = /\$uri\s*=\s*\x22[^\x22]+github/  nocase
+		$var = /\$uri\s*=\s*\x22[^\x22]{4,30}github/  nocase
 	condition:
 		for all i in (1..#uri) : ($host in (@uri[i]..@uri[i]+150)) or $var
 }
@@ -23,7 +23,7 @@ rule PS_Telegram_Integration {
 	strings:
 		$host = "telegram" nocase
 		$uri = "-Uri" nocase
-		$var = /\$uri\s*=\s*\x22[^\x22]+telegram/ nocase
+		$var = /\$uri\s*=\s*\x22[^\x22]{4,30}telegram/ nocase
 	condition:
 		for all i in (1..#uri) : ($host in (@uri[i]..@uri[i]+150)) or $var
 }
