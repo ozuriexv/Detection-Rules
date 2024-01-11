@@ -1,7 +1,7 @@
 rule PS_Github_Integration {
 	meta:
 		author = "James E.C, Emerging Threats - Proofpoint"
-		twitter = "@EcOzurie"
+		twitter = "@ozuriexv"
 		mastodon = "https://infosec.exchange/@ozurie"
 		description = "Searching for the use of Github in a PowerShell script, somewhere near the '-Uri' parameter"
 		category = "hunting"
@@ -16,7 +16,7 @@ rule PS_Github_Integration {
 rule PS_Telegram_Integration {
 	meta:
 		author = "James E.C, Emerging Threats - Proofpoint"
-		twitter = "@EcOzurie"
+		twitter = "@ozuriexv"
 		mastodon = "https://infosec.exchange/@ozurie"
 		description = "Searching for the use of Telegram in a PowerShell script, somewhere near the '-Uri' parameter"
 		category = "hunting"
